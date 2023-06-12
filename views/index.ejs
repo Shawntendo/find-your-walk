@@ -1,11 +1,120 @@
 <%- include('partials/header') -%>
 
-<main class="container">
-    <div class="row justify-content-around mt-5">
-        <a href="/login" class="col-3 btn btn-primary"> Login</a>
-        <a href="/signup" class="col-3 btn btn-primary"> Signup</a>
+<!-- <main class="container">
+  <div class="row justify-content-around mt-5">
+    <a href="/login" class="col-3 btn btn-primary"> Login</a>
+    <a href="/signup" class="col-3 btn btn-primary"> Signup</a>
+  </div>
+</main> -->
+<!-- Banner -->
+<section id="banner">
+
+  <!--
+    ".inner" is set up as an inline-block so it automatically expands
+    in both directions to fit whatever's inside it. This means it won't
+    automatically wrap lines, so be sure to use line breaks where
+    appropriate (<br />).
+  -->
+  <div class="inner">
+
+    <header>
+      <h2>FIND YOUR WALK</h2>
+    </header>
+    <p>Walk your pet <strong>safely</strong>,
+    <br />
+    with this free and
+    <br />
+    easy to use tool.</p>
+    <footer>
+      <ul class="buttons stacked">
+        <li><a href="#main" class="button fit scrolly">Get Started</a></li>
+      </ul>
+    </footer>
+
+  </div>
+
+</section>
+
+<!-- Main -->
+<article id="main">
+
+  <header class="special container">
+    <span class="icon fa-clock"></span>
+    <h2>Know what to expect,
+    <br />
+    and plan your path around it</h2>
+    <p>Whether you're walking with your pets or children, plan ahead and help keep them safe with FYW. Powered by a combination of company reporting and neighborhood tips, FYW is the most responsive app for ensuring a safe and peaceful walk.</p>
+  </header>
+
+  <!-- One -->
+  <section class="wrapper style2 container special-alt">
+    <div class="row gtr-50">
+      <div class="col-8 col-12-narrower">
+
+        <header>
+          <h2>Help keep your community's map up to date with markers for any situation.</h2>
+        </header>
+        <p>Use the familiar environment of Google Maps with added functionality to keep yourself and others informed about hazards on the road. Participating companies will assist by filling in the map with their markers.</p>
+        <footer>
+          <ul class="buttons">
+            <li><a href="#" class="button">Find Out More</a></li>
+          </ul>
+        </footer>
+
+      </div>
+      <div class="col-4 col-12-narrower imp-narrower">
+
+        <ul class="featured-icons">
+          <li><span class="icon solid fa-umbrella"><span class="label">Feature 1</span></span></li>
+          <li><span class="icon solid fa-snowplow"><span class="label">Feature 2</span></span></li>
+          <li><span class="icon solid fa-snowflake"><span class="label">Feature 3</span></span></li>
+          <li><span class="icon solid fa-tree"><span class="label">Feature 4</span></span></li>
+          <li><span class="icon solid fa-truck"><span class="label">Feature 5</span></span></li>
+          <li><span class="icon solid fa-flask"><span class="label">Feature 6</span></span></li>
+        </ul>
+
+      </div>
     </div>
-</main>
-    
+  </section>
+
+  <!-- Two -->
+  <section class="wrapper style1 container special">
+    <div class="row">
+      <div class="col-4 col-12-narrower">
+
+        <section>
+          <span class="icon featured solid fa-flask"></span>
+          <header>
+            <h3>Pesticides</h3>
+          </header>
+          <p>Stay informed about pest treatments in your area with dates of application and expiration.</p>
+        </section>
+
+      </div>
+      <div class="col-4 col-12-narrower">
+
+        <section>
+          <span class="icon featured solid fa-snowplow"></span>
+          <header>
+            <h3>Roadwork</h3>
+          </header>
+          <p>Sed tristique purus vitae volutpat ultrices. Aliquam eu elit eget arcu commodo suscipit dolor nec nibh. Proin a ullamcorper elit, et sagittis turpis. Integer ut fermentum.</p>
+        </section>
+
+      </div>
+      <div class="col-4 col-12-narrower">
+
+        <section>
+          <span class="icon featured solid fa-snowflake"></span>
+          <header>
+            <h3>Icy Conditions</h3>
+          </header>
+          <p>Sed tristique purus vitae volutpat ultrices. Aliquam eu elit eget arcu commodo suscipit dolor nec nibh. Proin a ullamcorper elit, et sagittis turpis. Integer ut fermentum.</p>
+        </section>
+
+      </div>
+    </div>
+  </section>
+</article>
 
 <%- include('partials/footer') -%>
