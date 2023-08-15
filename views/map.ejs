@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <title>Safewalker</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="assets/map/normalize.css" />
+  <link rel="stylesheet" type="text/css" href="assets/map/style.css" />
+</head>
+<body class="index is-preload">
+<div id="page-wrapper">
+  <header id="header" class="alt">
+    <nav class="navbar" id="nav">
+      <a id="logo" href="index.html"><img class="topLogo" src="assets/map/Safewalker-Logo-2.png"/></a>
+      <ul id="navUL">
+        <li class="navItem">
+          <embed id="newMarkerIcon" class="hidden" src="assets/map/snowflake-solid.svg"/><a id="newMarkerType" class="hidden">Pest</a>
+        </li>
+        <li class="navItem guide">
+          <a href="index.html">Guide</a>
+        </li>
+        <li class="navItem dropdown submenu">
+          <symbol class="textArrow downArrow"></symbol><a class="dropbtn">New Marker</a>
+          <ul id="dropdown-container" class="dropdown-content">
+            <li>
+              <embed class="icon1" src="assets/map/flask-solid.svg"/><a class="iconList icon1">Pesticide</a>
+            </li>
+            <li>
+              <embed class="icon1" src="assets/map/snowflake-solid.svg"/><a class="iconList icon2">Ice</a>
+            </li>
+            <li>
+              <embed class="icon1" src="assets/map/snowplow-solid.svg"/><a class="iconList icon3">Road Work</a>
+            </li>
+            <li>
+              <embed class="icon1" src="assets/map/tree-solid.svg"/><a class="iconList icon4">Fallen Tree</a>
+            </li>
+            <li>
+              <embed class="icon1" src="assets/map/truck-solid.svg"/><a class="iconList icon5">Heavy Traffic</a>
+            </li>
+            <li>
+              <embed class="icon1" src="assets/map/umbrella-solid.svg"/><a class="iconList icon6">Weather</a>
+            </li>
+          </ul>
+        </li>
+        <li class="navItem"><a href="#" class="button primary">Log In</a></li>
+        <li class="navItem"><a href="#" class="button primary">Sign Up</a></li>
+      </ul>
+    </nav>
+  </header>
+  <section id="banner">
+    <div id="map"></div>
+  </section>
+</div>
+
+<!-- Scripts -->
+<script type="text/javascript" src="assets/map/main.js"></script>
+<script async type="text/javascript"
+src="<%=process.env.MAPKEY%>">
+</script>
+</body>
+</html>

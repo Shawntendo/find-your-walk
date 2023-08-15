@@ -4,7 +4,7 @@ const Post = require("../models/Post");
 module.exports = {
   getProfile: async (req, res) => { 
     console.log('request from getProfile ' + req.user)
-    console.log(Post)
+    console.log('Post: ' + Post)
     try {
       //Since we have a session each request (req) contains the logged-in users info: req.user
       //console.log(req.user) to see everything
