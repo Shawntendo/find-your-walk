@@ -1,5 +1,5 @@
-//Use .env file in config folder
-//require("dotenv").config({ path: "./config/.env" });
+console.log('OLD FILE, WHY HAS THIS BEEN CALLED')
+// old file
 
 let map, geocoder, address,
   addressArr = ['116 Birch Lane, Bloomsbury, NJ',

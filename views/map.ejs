@@ -54,6 +54,19 @@
 </div>
 
 <!-- Scripts -->
+<script> let markerText = [] </script>
+  <% for(let i=0; i<locals.markers.length; i++){ %>
+<script>
+  markerText.push({ _id:"<%= locals.markers[i]._id %>",
+                    markerType:"<%= locals.markers[i].markerType %>",
+                    latitude:"<%= locals.markers[i].latitude %>",
+                    longitude:"<%= locals.markers[i].longitude %>",
+                    info:"<%= locals.markers[i].info %>",
+                    user:"<%= locals.markers[i].user %>",
+                    createdAt:"<%= locals.markers[i].createdAt %>",
+                    __v:"<%= locals.markers[i].__v %>"})
+</script>
+<% } %>
 <script type="text/javascript" src="assets/map/main.js"></script>
 <script async type="text/javascript"
 src="<%=process.env.MAPKEY%>">

@@ -3,10 +3,10 @@
 let map, geocoder, addressArr = []
 let position = [40.65489, -75.11352]
 let currentMarker
-let codedArr = [ {lat:40.6566104, lng:-75.11770899999999},
-                  {lat:40.6566319, lng:-75.1187581}]
+let codedArr = [ {lat:40.6566104, lng:-75.11770899999999} ]//[ {lat:40.6566104, lng:-75.11770899999999},
+               //   {lat:40.6566319, lng:-75.1187581}]
 let infoArr = ['info string 1', 'info string 2']
-let typeArr = [0,3]
+let typeArr = [0] //[0,3]
 const markerTypeArr = ['Pesticide', 'Ice', 'Road Work', 'Fallen Tree', 'Heavy Traffic', 'Weather']
 const iconImageArr = [ 'assets/map/flask-solid.svg',
                     'assets/map/snowflake-solid.svg',
@@ -38,7 +38,13 @@ function initMap(){
   for(let i=0; i<addressArr.length; i++){
     codeAddress(geocoder, map, addressArr[i]);
   }
+
+  //gets fetched DB markers from document
+  console.log('PASSED FROM MAP.EJS: ' + markerText)
+  console.log('PASSED FROM MAP.EJS: ' + markerText[0].latitude + ' ' + typeof markerText[0])
+  console.log('PASSED FROM MAP.EJS: ' + markerText[1].latitude)
   
+  //sets stored markers
   for(let i=0; i<codedArr.length; i++){
     let tempMarker = new google.maps.Marker({
       position:codedArr[i],
