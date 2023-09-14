@@ -8,6 +8,10 @@ const { ensureAuth } = require("../middleware/auth");
 router.get("/", mapController.getMap);
 
 //Marker Routes
+// router.get("/getMyMarkerID/:lat/:lng", mapController.getMyMarkerID);
+router.post("/createMarker", mapController.createMarker);
+// router.put("/updateMarker/:id", mapController.updateMarker);
+router.put("/flagMarker/:id", mapController.flagMarker);
+router.delete("/removeMarker/:id", mapController.removeMarker);
 
-
-module.exports = router
+module.exports = router;

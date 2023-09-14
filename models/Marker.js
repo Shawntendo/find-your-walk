@@ -25,6 +25,18 @@ const MarkerSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  approved: {
+    type: Number,
+    required: true,
+  },
+  flagged: {
+    type: Number,
+    required: true,
+  },
+  flagBy: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Marker", MarkerSchema);

@@ -14,8 +14,16 @@
     <nav class="navbar" id="nav">
       <a id="logo" href="index.html"><img class="topLogo" src="assets/map/Safewalker-Logo-2.png"/></a>
       <ul id="navUL">
-        <li class="navItem">
+        <li id="measureFrom" class="navItem dropdown submenu">
           <embed id="newMarkerIcon" class="hidden" src="assets/map/snowflake-solid.svg"/><a id="newMarkerType" class="hidden">Pest</a>
+          <ul id="infoDropdown" class="dropdown-content">
+            <li>
+              <form id="infoForm" action="" method="get">
+                <label for="info">Type in Details:</label>
+                <input id="infoField" type="text" name="info" />
+              </form>
+            </li>
+          </ul>
         </li>
         <li class="navItem guide">
           <a href="index.html">Guide</a>
@@ -43,29 +51,40 @@
             </li>
           </ul>
         </li>
-        <li class="navItem"><a href="#" class="button primary">Log In</a></li>
-        <li class="navItem"><a href="#" class="button primary">Sign Up</a></li>
+        <%if(!locals.isItAuth){%>
+          <li class="navItem"><a href="/login" class="button primary">Log In</a></li>
+          <li class="navItem"><a href="/signup" class="button primary">Sign Up</a></li>
+        <%}else{%>
+          <li class="navItem"><a href="#" class="button primary"><%=locals.profileName%></a></li>
+          <li class="navItem"><a href="/logout" class="button primary">Log Out</a></li>
+        <%}%>
       </ul>
     </nav>
   </header>
   <section id="banner">
     <div id="map"></div>
   </section>
+  <!-- <% console.log( locals.userCode ) %> -->
 </div>
 
 <!-- Scripts -->
-<script> let markerText = [] </script>
-  <% for(let i=0; i<locals.markers.length; i++){ %>
 <script>
-  markerText.push({ _id:"<%= locals.markers[i]._id %>",
-                    markerType:"<%= locals.markers[i].markerType %>",
-                    latitude:"<%= locals.markers[i].latitude %>",
-                    longitude:"<%= locals.markers[i].longitude %>",
-                    info:"<%= locals.markers[i].info %>",
-                    user:"<%= locals.markers[i].user %>",
-                    createdAt:"<%= locals.markers[i].createdAt %>",
-                    __v:"<%= locals.markers[i].__v %>"})
+  let markersFromDB = [], userCode = "<%= locals.userCode %>"
 </script>
+<% for(let i=0; i<locals.markers.length; i++){ %>
+  <script>
+    markersFromDB.push({_id:         "<%= locals.markers[i]._id %>",
+                        markerType: +"<%= locals.markers[i].markerType %>",
+                        latitude:   +"<%= locals.markers[i].latitude %>",
+                        longitude:  +"<%= locals.markers[i].longitude %>",
+                        info:        "<%= locals.markers[i].info %>",
+                        user:        "<%= locals.markers[i].user %>",
+                        createdAt:   "<%= locals.markers[i].createdAt %>",
+                        approved:   +"<%= locals.markers[i].approved %>",
+                        flagged:    +"<%= locals.markers[i].flagged %>",
+                        flagBy:      "<%= locals.markers[i].flagBy %>",
+                        __v:        +"<%= locals.markers[i].__v %>"})
+  </script>
 <% } %>
 <script type="text/javascript" src="assets/map/main.js"></script>
 <script async type="text/javascript"
