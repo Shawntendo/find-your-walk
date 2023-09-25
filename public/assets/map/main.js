@@ -21,6 +21,10 @@ newMarkerAnchor = document.getElementById('newMarkerType')
 newMarkerEmbed = document.getElementById('newMarkerIcon')
 let isMarkerBeingPlaced = false
 let infoWindowBool = true
+let lastTimePosUpdated = Date.now()
+const delayConstant = 5000
+let idledLongEnough = true,
+    mapInitFinished = false
 infoFieldForm.reset()
 
 // addressArr = ['116 Birch Lane, Bloomsbury, NJ',
@@ -31,8 +35,11 @@ function initMap(){
 
   //sets options
   var options = {
-    zoom: 15,
-    center:{lat:40.65489, lng:-75.11352}
+    // zoom: 15,
+    zoom: lastZoom,
+    // center:{lat:40.65489, lng:-75.11352} // local test
+    // center:{lat:39.8283, lng:-98.5795} // global test
+    center:{lat:lastLat, lng:lastLng}
   }
   //initializes map with options
   map = new google.maps.Map(document.getElementById('map'), options)
@@ -165,9 +172,42 @@ function initMap(){
     }
   });
 
+  google.maps.event.addListener(map, 'dragend', function(event) {
+    console.log('DRAGEND')
+  });
+  google.maps.event.addListener(map, 'zoom_changed', function(event) {
+    console.log('ZOOM_CHANGED')
+  });
+  // google.maps.event.addListener(map, 'tilesloaded', function(event) {
+  //   console.log('TILESLOADED')
+  // });
+  google.maps.event.addListener(map, 'idle', function(event) {
+    console.log('IDLE')
+    if(idledLongEnough && mapInitFinished){
+      idledLongEnough = false
+      delayIdleListener()
+    }
+    mapInitFinished = true
+  });
   // console.log('end of map init')
 }
-
+async function delayIdleListener(){
+  try {
+    await promisedSleep(delayConstant)
+    idledLongEnough = true
+    let newCenter = map.getCenter()
+    lastLat = newCenter.lat()
+    lastLng = newCenter.lng()
+    lastZoom = map.getZoom()
+    updateMapPosition()
+    console.log('MAP POSITION UPDATED')
+  } catch (err) {
+    console.log(err)
+  }
+}
+function promisedSleep(ms){
+  return new Promise(res => setTimeout(res, ms))
+}
 //5-16 temp
 // var numDeltas = 100;
 // var delay = 10; //milliseconds
@@ -274,6 +314,15 @@ async function flagMarkerButton(arrIndex){
       method: "POST",
     })
     // console.log('after flag request')
+  } catch (err) {
+    console.log(err)
+  }
+}
+async function updateMapPosition(){
+  try {
+    const response = await fetch(`/map/updateMapPos/${lastLat}/${lastLng}/${lastZoom}?_method=PUT`, {
+      method: "POST",
+    })
   } catch (err) {
     console.log(err)
   }

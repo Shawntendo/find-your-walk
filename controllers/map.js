@@ -1,4 +1,5 @@
 const Marker = require("../models/Marker");
+const User = require("../models/User");
 
 module.exports = {
   getMap: async (req, res) => {
@@ -10,16 +11,16 @@ module.exports = {
       for(let i=0; i<markers.length; i++){
         markersArr.push(markers[i])
       }
-      if(req.user){
-        // console.log('REQ.USER KEYS: ' + Object.keys(req.user))
-      }
       // console.log('MARKERS RETRIEVED, RENDERING MAP, SENDING MARKERS')
       // console.log(markersArr)
       res.render("map.ejs", {
         markers: markersArr, 
         isItAuth: req.isAuthenticated(), 
         profileName: req.user ? req.user.userName : null, 
-        userCode: req.user ? req.user.id : null
+        userCode: req.user ? req.user.id : null,
+        lastLat: req.user ? req.user.lastLat : 39.8283,
+        lastLng: req.user ? req.user.lastLng : -98.5795,
+        lastZoom: req.user ? req.user.lastZoom : 4,
       });
     } catch (err) {
       console.log(err);
@@ -107,6 +108,25 @@ module.exports = {
         //     $set: { flagBy: req.user.id },
         //   }
         // );
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  },
+  updateMapPos: async (req, res) => {
+    try {
+      if(req.user){
+        console.log('REQ.USER.ID: ' + req.user.id)
+        // console.log('REQ.PARAMS.LASTLAT: ' + req.params.lat)
+        await User.findOneAndUpdate(
+          { _id: req.user.id },
+          {
+            $set: { lastLat: req.params.lat,
+                    lastLng: req.params.lng,
+                    lastZoom: req.params.zoom }
+          }
+        );
+        res.status(204).end()
       }
     } catch (err) {
       console.log(err)

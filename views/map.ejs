@@ -69,7 +69,11 @@
 
 <!-- Scripts -->
 <script>
-  let markersFromDB = [], userCode = "<%= locals.userCode %>"
+  let markersFromDB = [],
+      userCode = "<%= locals.userCode %>",
+      lastLat = +"<%= locals.lastLat %>",
+      lastLng = +"<%= locals.lastLng %>",
+      lastZoom = +"<%= locals.lastZoom %>"
 </script>
 <% for(let i=0; i<locals.markers.length; i++){ %>
   <script>

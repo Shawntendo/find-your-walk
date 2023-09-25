@@ -12,6 +12,7 @@ router.get("/", mapController.getMap);
 router.post("/createMarker", mapController.createMarker);
 // router.put("/updateMarker/:id", mapController.updateMarker);
 router.put("/flagMarker/:id", mapController.flagMarker);
+router.put("/updateMapPos/:lat/:lng/:zoom", mapController.updateMapPos)
 router.delete("/removeMarker/:id", mapController.removeMarker);
 
 module.exports = router;
