@@ -1,7 +1,5 @@
 //Map page JS
 
-// const { createMarker } = require("../../../controllers/map")
-
 let map, geocoder, addressArr = [], markerStorage = []
 let position = [40.65489, -75.11352]
 // let currentMarker
@@ -21,9 +19,12 @@ newMarkerAnchor = document.getElementById('newMarkerType')
 newMarkerEmbed = document.getElementById('newMarkerIcon')
 let isMarkerBeingPlaced = false
 let infoWindowBool = true
-let lastTimePosUpdated = Date.now()
-const delayConstant = 5000
-let idledLongEnough = true,
+// let lastTimePosUpdated = Date.now()
+const loadDelayConstant = 500
+const idleDelayConstant = 2000
+let longEnoughUntilLoad = true,
+    idledLongEnough = true,
+    tileInitFinished = false,
     mapInitFinished = false
 infoFieldForm.reset()
 
@@ -57,7 +58,8 @@ function initMap(){
     let tempMarker = new google.maps.Marker({
       position:{lat:markersFromDB[i].latitude, lng:markersFromDB[i].longitude},
       map:map,
-      icon: iconImageArr[markersFromDB[i].markerType]})
+      icon: iconImageArr[markersFromDB[i].markerType]
+    })
     markerStorage.push(tempMarker)
     // cut out info parameter
     let tempWindow = new google.maps.InfoWindow({
@@ -177,10 +179,26 @@ function initMap(){
   });
   google.maps.event.addListener(map, 'zoom_changed', function(event) {
     console.log('ZOOM_CHANGED')
+    let newZoom = map.getZoom()
+    if(lastZoom < 14 && newZoom >= 14){
+      for(let i=0; i<markerStorage.length; i++){
+        markerStorage[i].setMap(map)
+      }
+    } else if(lastZoom >= 14 && newZoom < 14){
+      for(let i=0; i<markerStorage.length; i++){
+        markerStorage[i].setMap(null)
+      }
+    }
+    lastZoom = newZoom
   });
-  // google.maps.event.addListener(map, 'tilesloaded', function(event) {
-  //   console.log('TILESLOADED')
-  // });
+  google.maps.event.addListener(map, 'tilesloaded', function(event) {
+    console.log('TILESLOADED')
+    if(longEnoughUntilLoad && tileInitFinished){
+      longEnoughUntilLoad = false
+      delayTileLoadListener()
+    }
+    tileInitFinished = true
+  });
   google.maps.event.addListener(map, 'idle', function(event) {
     console.log('IDLE')
     if(idledLongEnough && mapInitFinished){
@@ -189,11 +207,24 @@ function initMap(){
     }
     mapInitFinished = true
   });
-  // console.log('end of map init')
+  console.log('end of map init')
+}
+async function delayTileLoadListener(){
+  try {
+    await promisedSleep(loadDelayConstant)
+    longEnoughUntilLoad = true
+    let newCenter = map.getCenter()
+    lastLat = newCenter.lat()
+    lastLng = newCenter.lng()
+    loadNewMarkers()
+    console.log('NEW MARKERS LOADED')
+  } catch (err) {
+    console.log(err)
+  }
 }
 async function delayIdleListener(){
   try {
-    await promisedSleep(delayConstant)
+    await promisedSleep(idleDelayConstant)
     idledLongEnough = true
     let newCenter = map.getCenter()
     lastLat = newCenter.lat()
@@ -284,7 +315,7 @@ async function createNewMarker(newType, newLat, newLng, newInfo, newApproved, ne
     })
     const createMarkerResponse = response.json()
     // console.log('CREATE MARKER RESPONSE: ' + response)
-    createMarkerResponse.then( (data) => {
+    createMarkerResponse.then((data) => {
       // console.log('CREATE MARKER RESPONSE: ')
       // console.log(data)
       markersFromDB.push(data)
@@ -314,6 +345,42 @@ async function flagMarkerButton(arrIndex){
       method: "POST",
     })
     // console.log('after flag request')
+  } catch (err) {
+    console.log(err)
+  }
+}
+async function loadNewMarkers(){
+  try {
+    const response = await fetch(`/map/loadMarkers/${lastLat}/${lastLng}`)
+    const loadMarkersResponse = response.json()
+    loadMarkersResponse.then((data) => {
+      console.log('LOADMARKER RESPONSE: ')
+      console.log(data)
+      if(data){
+        for(let i=0; i<markerStorage.length; i++){
+          markerStorage[i].setMap(null)
+        }
+        markerStorage = []
+        for(let i=0; i<data.length; i++){
+          let tempMarker = new google.maps.Marker({
+            position:{lat:data[i].latitude, lng:data[i].longitude},
+            map:lastZoom >=14 ? map : null,
+            icon: iconImageArr[data[i].markerType]
+          })
+          markerStorage.push(tempMarker)
+          let tempWindow = new google.maps.InfoWindow({
+            content:
+              `<span class="infoWindow windowTop">${markerTypeArr[data[i].markerType]}</span><br>` +
+              (infoWindowBool ? `<span class="infoWindow windowBot">${data[i].info}</span><br>` : ``) +
+              (userCode !== data[i].flagBy && userCode !== data[i].user && userCode ? `<button onclick="flagMarkerButton(${markerStorage.length-1})">Flag as Inaccurate</button><br>` : ``) +
+              (userCode === data[i].user ? `<button onclick="removeMarkerButton(${markerStorage.length-1})">Remove Marker</button>` : ``)
+          })
+          tempMarker.addListener('click',function(){
+            tempWindow.open(map,tempMarker);
+          })
+        }
+      }
+    })
   } catch (err) {
     console.log(err)
   }

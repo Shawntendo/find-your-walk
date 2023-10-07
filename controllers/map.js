@@ -3,13 +3,30 @@ const User = require("../models/User");
 
 module.exports = {
   getMap: async (req, res) => {
-    // console.log('GETMAP REQ: ' + Object.keys(req.headers))
+    // console.log('GETMAP REQ: ' + Object.entries(req.user))
     // console.log('GETMAP REQ: ' + req.headers)
+
+    // sample query
+    //{latitude:{$gt:40.655,$lt:40.657},longitude:{$gt:-75.12,$lt:-75.11}}
+
     try {
-      let markers = await Marker.find().sort()
-      let markersArr = []
-      for(let i=0; i<markers.length; i++){
-        markersArr.push(markers[i])
+      let markers = [],
+          markersArr = [],
+          userLastLat = req.user ? req.user.lastLat : 39.8283,
+          userLastLng = req.user ? req.user.lastLng : -98.5795,
+          userLastZoom = req.user ? req.user.lastZoom : 4
+      if(req.user){
+        if(userLastZoom >= 14){
+          // same query in loadMarkers
+          markers = await Marker.find({
+            latitude:{$gt: +userLastLat - .2,$lt: +userLastLat + .2},
+            longitude:{$gt: +userLastLng - .1,$lt: +userLastLng + .1}})
+            // latitude:{$gt:40.655,$lt:40.657},longitude:{$gt:-75.12,$lt:-75.11}})
+            .sort()
+          for(let i=0; i<markers.length; i++){
+            markersArr.push(markers[i])
+          }
+        }
       }
       // console.log('MARKERS RETRIEVED, RENDERING MAP, SENDING MARKERS')
       // console.log(markersArr)
@@ -18,9 +35,9 @@ module.exports = {
         isItAuth: req.isAuthenticated(), 
         profileName: req.user ? req.user.userName : null, 
         userCode: req.user ? req.user.id : null,
-        lastLat: req.user ? req.user.lastLat : 39.8283,
-        lastLng: req.user ? req.user.lastLng : -98.5795,
-        lastZoom: req.user ? req.user.lastZoom : 4,
+        lastLat: userLastLat,
+        lastLng: userLastLng,
+        lastZoom: userLastZoom,
       });
     } catch (err) {
       console.log(err);
@@ -109,6 +126,24 @@ module.exports = {
         //   }
         // );
       }
+    } catch (err) {
+      console.log(err)
+    }
+  },
+  loadMarkers: async (req, res) => {
+    try {
+      let markers = [],
+          markersArr = []
+          // same query in getMap
+      markers = await Marker.find({
+        latitude: {$gt: +req.params.lat - .2,$lt: +req.params.lat + .2},
+        longitude:{$gt: +req.params.lng - .1,$lt: +req.params.lng + .1}})
+        .sort()
+      for(let i=0; i<markers.length; i++){
+        markersArr.push(markers[i])
+      }
+      console.log('FOUND NEW MARKERS: ' + markersArr)
+      res.json(markersArr)
     } catch (err) {
       console.log(err)
     }
