@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <!-- <title>Welcome to Firebase Hosting</title> -->
+    <title>Safewalker</title>
+
+    <link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+
+    <!-- update the version number as needed -->
+    <!-- <script defer src="/__/firebase/10.4.0/firebase-app-compat.js"></script> -->
+    <!-- include only the Firebase features as you need -->
+    <!-- <script defer src="/__/firebase/10.4.0/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/10.4.0/firebase-database-compat.js"></script>
+    <script defer src="/__/firebase/10.4.0/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/10.4.0/firebase-functions-compat.js"></script>
+    <script defer src="/__/firebase/10.4.0/firebase-messaging-compat.js"></script>
+    <script defer src="/__/firebase/10.4.0/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/10.4.0/firebase-analytics-compat.js"></script>
+    <script defer src="/__/firebase/10.4.0/firebase-remote-config-compat.js"></script>
+    <script defer src="/__/firebase/10.4.0/firebase-performance-compat.js"></script> -->
+    <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+    <!-- <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+    <style media="screen">
+      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
+      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      @media (max-width: 600px) {
+        body, #message { margin-top: 0; background: white; box-shadow: none; }
+        body { border-top: 16px solid #ffa100; }
+      }
+    </style> -->
+  </head>
+  <body>
+
+    <div id="page-wrapper">
+      <!-- <header class="container">
+        <div class="text-center">
+          <h1 class=""><a href="/profile">Find Your Walk</a></h1>
+          <span>Neighborhood Map</span>
+        </div>
+      </header> -->
+      <header id="header" class="alt">
+        <!-- <h1 id="logo" class=""><a href="/profile">Find Your Walk</a></h1> -->
+        <h1 id="logo" class=""><a href="#">Find Your Walk</a></h1>
+        <nav id="nav">
+          <ul>
+            <!-- <li class="current"><a href="/profile">Welcome</a></li> -->
+            <li class="current"><a href="#">Welcome</a></li>
+            <!-- <li class="submenu">
+              <a href="#">Layouts</a>
+              <ul>
+                <li><a href="left-sidebar.html">Left Sidebar</a></li>
+                <li><a href="right-sidebar.html">Right Sidebar</a></li>
+                <li><a href="no-sidebar.html">No Sidebar</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li class="submenu">
+                  <a href="#">Submenu</a>
+                  <ul>
+                    <li><a href="#">Dolore Sed</a></li>
+                    <li><a href="#">Consequat</a></li>
+                    <li><a href="#">Lorem Magna</a></li>
+                    <li><a href="#">Sed Magna</a></li>
+                    <li><a href="#">Ipsum Nisl</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li> -->
+            <!-- <%if(!locals.isItAuth){%> -->
+            <!-- <li><a href="/login" class="button primary">Log In</a></li>
+            <li><a href="/signup" class="button primary">Sign Up</a></li> -->
+            <li><a href="#" class="button primary">Log In</a></li>
+            <li><a href="#" class="button primary">Sign Up</a></li>
+            <!-- <%}else{%>
+            <li><a href="/profile" class="button primary"><%=locals.profileName%></a></li>
+            <li><a href="/logout" class="button primary">Log Out</a></li>
+            <%}%> -->
+          </ul>
+        </nav>
+      </header>
+      <!-- <main class="container">
+  <div class="row justify-content-around mt-5">
+    <a href="/login" class="col-3 btn btn-primary"> Login</a>
+    <a href="/signup" class="col-3 btn btn-primary"> Signup</a>
+  </div>
+</main> -->
+<!-- Banner -->
+<section id="banner">
+
+  <!--
+    ".inner" is set up as an inline-block so it automatically expands
+    in both directions to fit whatever's inside it. This means it won't
+    automatically wrap lines, so be sure to use line breaks where
+    appropriate (<br />).
+  -->
+  <div class="inner">
+
+    <header>
+      <h2>SAFEWALKER</h2>
+    </header>
+    <p>Walk your pet <strong>safely</strong>,
+    <br />
+    with this free and
+    <br />
+    easy to use tool.</p>
+    <footer>
+      <ul class="buttons stacked">
+        <li><a href="/map" class="button fit scrolly">Get Started</a></li>
+      </ul>
+    </footer>
+
+  </div>
+
+</section>
+
+<!-- Main -->
+<article id="main">
+
+  <header class="special container">
+    <span class="icon fa-clock"></span>
+    <h2>Know what to expect,
+    <br />
+    and plan your path around it</h2>
+    <p>Whether you're walking with your pets or children, plan ahead and help keep them safe with Safewalker. Powered by a combination of company reporting and neighborhood tips, Safewalker is the most responsive app for ensuring a safe and peaceful walk.</p>
+  </header>
+
+  <!-- One -->
+  <section class="wrapper style2 container special-alt">
+    <div class="row gtr-50">
+      <div class="col-8 col-12-narrower">
+
+        <header>
+          <h2>Help keep your community's map up to date with markers for any situation.</h2>
+        </header>
+        <p>Use the familiar environment of Google Maps with added functionality to keep yourself and others informed about hazards on the road. Participating companies will assist by filling in the map with their markers.</p>
+        <footer>
+          <ul class="buttons">
+            <li><a href="#" class="button">Find Out More</a></li>
+          </ul>
+        </footer>
+
+      </div>
+      <div class="col-4 col-12-narrower imp-narrower">
+
+        <ul class="featured-icons">
+          <li><span class="icon solid fa-umbrella"><span class="label">Feature 1</span></span></li>
+          <li><span class="icon solid fa-snowplow"><span class="label">Feature 2</span></span></li>
+          <li><span class="icon solid fa-snowflake"><span class="label">Feature 3</span></span></li>
+          <li><span class="icon solid fa-tree"><span class="label">Feature 4</span></span></li>
+          <li><span class="icon solid fa-truck"><span class="label">Feature 5</span></span></li>
+          <li><span class="icon solid fa-flask"><span class="label">Feature 6</span></span></li>
+        </ul>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Two -->
+  <section class="wrapper style1 container special">
+    <div class="row">
+      <div class="col-4 col-12-narrower">
+
+        <section>
+          <span class="icon featured solid fa-flask"></span>
+          <header>
+            <h3>Pesticides</h3>
+          </header>
+          <p>We can help you stay informed about pest treatments in your area with dates of application and expiration.</p>
+        </section>
+
+      </div>
+      <div class="col-4 col-12-narrower">
+
+        <section>
+          <span class="icon featured solid fa-snowplow"></span>
+          <header>
+            <h3>Roadwork</h3>
+          </header>
+          <p>Not all road work will block your path. Sidewalks may be re-routed, less accessible, or blocked off entirely. We can help you learn the details of how this may affect you.</p>
+        </section>
+
+      </div>
+      <div class="col-4 col-12-narrower">
+
+        <section>
+          <span class="icon featured solid fa-snowflake"></span>
+          <header>
+            <h3>Icy Conditions</h3>
+          </header>
+          <p>Ice can be dangerous on more than just the road, and it doesn't always melt soon. We can help track where it gathers and where it sticks around.</p>
+        </section>
+
+      </div>
+    </div>
+  </section>
+</article>
+<!-- Footer -->
+<footer id="footer">
+
+  <ul class="icons">
+    <li><a href="#" class="icon brands circle fa-twitter"><span class="label">Twitter</span></a></li>
+    <li><a href="#" class="icon brands circle fa-facebook-f"><span class="label">Facebook</span></a></li>
+    <li><a href="#" class="icon brands circle fa-google-plus-g"><span class="label">Google+</span></a></li>
+    <li><a href="#" class="icon brands circle fa-github"><span class="label">Github</span></a></li>
+    <li><a href="#" class="icon brands circle fa-dribbble"><span class="label">Dribbble</span></a></li>
+  </ul>
+
+  <ul class="copyright">
+    <!-- <li>&copy; Untitled</li> -->
+    <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+  </ul>
+
+</footer>
+
+</div>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.dropotron.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>  
+
+    <!-- <div id="message">
+      <h2>Welcome</h2>
+      <h1>Firebase Hosting Setup Complete</h1>
+      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
+      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+    </div>
+    <p id="load">Firebase SDK Loading&hellip;</p> -->
+
+    <!-- <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const loadEl = document.querySelector('#load');
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        // // The Firebase SDK is initialized and available here!
+        //
+        // firebase.auth().onAuthStateChanged(user => { });
+        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+        // firebase.firestore().doc('/foo/bar').get().then(() => { });
+        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
+        // firebase.messaging().requestPermission().then(() => { });
+        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+        // firebase.analytics(); // call to activate
+        // firebase.analytics().logEvent('tutorial_completed');
+        // firebase.performance(); // call to activate
+        //
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+        try {
+          let app = firebase.app();
+          let features = [
+            'auth', 
+            'database', 
+            'firestore',
+            'functions',
+            'messaging', 
+            'storage', 
+            'analytics', 
+            'remoteConfig',
+            'performance',
+          ].filter(feature => typeof app[feature] === 'function');
+          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
+        } catch (e) {
+          console.error(e);
+          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+        }
+      });
+    </script> -->
+  </body>
+</html>
